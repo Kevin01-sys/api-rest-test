@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link href="basic.css" rel="stylesheet" title="Default Style">
+	<title></title>
+</head>
+<body>
+	<main>
+	<label for="number">Choose a number</label><br>
+	<input id="number" type="number" min="1" max="671" />
+	<figure>
+	<img id="avatar" src="" alt="" />
+	<figcaption id="imageDescription"></figcaption>
+	</figure>
+	</main>
+</body>
+<script type="text/javascript">
+// // el inputValue nos permite acceder al valor de la entrada del usuario, es decir, el número elegido
+const inputValue = document.getElementById('number')
+// esta constante nos permite establecer la imagen a mostrar, cambiando dinámicamente su atributo "src"
+const avatar = document.getElementById('avatar')
+// aquí creamos un enlace al elemento donde pondremos la descripción de la imagen, para que podamos cambiar el nombre del personaje mostrado
+const imageDescription = document.getElementById('imageDescription')
+	function getCharacter (id) {
+	var request = new XMLHttpRequest();
+	const API_URL = 'https://rickandmortyapi.com/api/character/:id'
+	const URL = API_URL.replace(':id', id)
+	request.open('GET', URL)
+	request.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
+	request.responseType = 'json'
+	request.onload = function () {
+
+	// el estado de respuesta nos dice el código de estado HTTP, si es 200, significa que el estado de respuesta es "OK"
+	if (this.status == 200) {
+
+	// guardamos la respuesta en una variable
+	var newCharacterJSON = this.response
+	console.log(newCharacterJSON)
+
+	// al analizar la estructura de los datos de respuesta, sabemos que necesitamos acceder a la llave "image" del objeto JSON para obtener el URL de la imagen
+	var imagePath = newCharacterJSON.image
+
+	// ahora establecemos el atributo src de nuestro elemento de imagen como la URL de la respuesta
+	avatar.setAttribute('src', imagePath)
+
+	// para obtener la descripción de la imagen, accedemos a la llave "nombre" del JSON
+	var characterName = newCharacterJSON.name
+	if (characterName) {
+
+	// establecemos el texto para mostrar el nombre que obtuvimos de la respuesta
+	imageDescription.innerHTML = characterName
+	} else {
+
+	// si no se ha dado ninguna información de entrada por parte del usuario, mostramos el mensaje para elegir un número
+	imageDescription.innerHTML = 'Please choose a number'
+	}
+	} else {
+	// si el estado de la respuesta es diferente de 200, se produjo un error (puede ser que el número del ID del personaje elegido esté fuera del rango)
+	imageDescription.innerHTML =
+	`An error occurred during your request! Code: ${request.status}`
+	}
+	}
+	request.send()
+	}
+
+inputValue.addEventListener('change', function () {
+console.log('Test');
+const choosenNumber = inputValue.value
+getCharacter(choosenNumber)
+})
+</script>
+</html>

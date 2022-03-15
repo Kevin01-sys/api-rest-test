@@ -1,0 +1,12 @@
+body {
+background-color: pink;
+color: grey;
+font-size: xx-large;
+text-transform: uppercase;
+text-align: center;
+font-family: Verdana, Geneva, Tahoma, sans-serif;
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+}
