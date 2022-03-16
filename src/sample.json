@@ -12,5 +12,12 @@
         "director": "Cristopher Nolan",
         "year": "2008",
         "rating": "10.0"
+    },
+    {
+        "id": "3",
+        "title": "Toy Story",
+        "director": "Alan Nabal",
+        "year": "2005",
+        "rating": "6.7"
     }
 ]

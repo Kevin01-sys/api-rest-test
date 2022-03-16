@@ -42,9 +42,10 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
     const {id} = req.params;
     if (id) {
-        _.each(movies, (movie, i) => {
+        _.every(movies, (movie, i) => {
             if (movie.id == id) {
                 movies.splice(i, 1);
+                return false;
             }
         });
         res.json(movies);
