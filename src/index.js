@@ -1,6 +1,13 @@
 const express = require('express');
 const morgan = require('morgan');
 const app = express();
+const cors = require("cors");
+app.use(
+    cors({
+        //origin: "http://localhost:80",
+        origin: "*",
+    })
+);
 
 // settings
 app.set('port', process.env.PORT || 4000);
